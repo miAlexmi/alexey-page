@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Привет, Алексей!</title>
+    <style>
+        /* Сброс отступов и базовые настройки */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* Красивый современный градиент */
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
+            padding: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            border-radius: 40px;
+            padding: 50px 40px;
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+        }
+
+        h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 30px;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 10px rgba(102, 126, 234, 0.2);
+        }
+
+        /* Стиль для маленьких экранов */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.4rem;
+            }
+            .card {
+                padding: 35px 25px;
+            }
+        }
+
+        .greeting-sub {
+            color: #4a5568;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+            font-weight: 400;
+            border-bottom: 1px dashed #cbd5e0;
+            padding-bottom: 20px;
+        }
+
+        /* Красивая кнопка */
+        .cta-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 600;
+            padding: 18px 45px;
+            border-radius: 60px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            transition: all 0.25s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            letter-spacing: 1px;
+            backdrop-filter: blur(5px);
+            width: 100%;
+            max-width: 280px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .cta-button:active {
+            transform: scale(0.98);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Маленькая анимация появления */
+        .card {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Футер с иконкой */
+        .footer-note {
+            margin-top: 25px;
+            font-size: 0.8rem;
+            color: #718096;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <!-- Основной заголовок -->
+        <h1>Привет, Алексей!</h1>
+        
+        <!-- Декоративная подпись -->
+        <div class="greeting-sub">✨ твой новый сайт готов ✨</div>
+
+        <!-- Кнопка по центру с действием -->
+        <button class="cta-button" id="magicButton">Нажми меня</button>
+
+        <!-- Небольшой текст внизу -->
+        <div class="footer-note">Сделано с помощью ИИ и GitHub Pages</div>
+    </div>
+
+    <script>
+        (function() {
+            // Находим кнопку по id
+            const button = document.getElementById('magicButton');
+            
+            // Добавляем обработчик нажатия
+            button.addEventListener('click', function() {
+                // Красивое всплывающее уведомление
+                alert('🚀 Отлично! Ты только что запустил свой второй сайт. Так держать, Алексей!');
+                
+                // Маленький бонус: при каждом нажатии меняем текст кнопки на секунду
+                const originalText = button.textContent;
+                button.textContent = '✓ Ура!';
+                button.style.background = 'linear-gradient(135deg, #48bb78, #38a169)';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                }, 1200);
+            });
+
+            // Дополнительная фишка: если нажать на заголовок 3 раза - маленький секрет
+            const title = document.querySelector('h1');
+            let clickCount = 0;
+            title.addEventListener('click', function() {
+                clickCount++;
+                if (clickCount === 3) {
+                    title.textContent = 'Привет, Мастер Алексей! 👑';
+                    title.style.transition = 'all 0.3s';
+                    setTimeout(() => {
+                        title.textContent = 'Привет, Алексей!';
+                    }, 2000);
+                    clickCount = 0;
+                }
+            });
+        })();
+    </script>
+
+</body>
+</html>
