@@ -3,38 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Привет, Алексей!</title>
+    <title>Привет, Алексей! ✨</title>
     <style>
-        /* Сброс отступов и базовые настройки */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            /* Красивый современный градиент */
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+        body, html {
+            height: 100%;
+            width: 100%;
+            overflow: hidden; /* Убираем скролл, чтобы видео было на весь экран */
+            font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
+        }
+
+        /* Контейнер для видео на заднем плане */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Растягивает видео на весь экран без искажений */
+            z-index: -2; /* Отправляем под весь контент */
+        }
+
+        /* Затемняющий слой, чтобы текст был читаемым */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3); /* Полупрозрачный черный */
+            z-index: -1;
+        }
+
+        /* Основной контент по центру */
+        .content {
+            position: relative;
+            z-index: 10;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
             padding: 20px;
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(5px);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border-radius: 40px;
             padding: 50px 40px;
-            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.25);
             text-align: center;
-            max-width: 500px;
+            max-width: 550px;
             width: 100%;
             transform: translateY(0);
             transition: transform 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            animation: fadeInUp 1s ease-out;
         }
 
         .card:hover {
@@ -42,18 +72,17 @@
         }
 
         h1 {
-            font-size: 3.2rem;
+            font-size: 3.4rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #ffffff, #e0e7ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             letter-spacing: -0.5px;
-            text-shadow: 0 2px 10px rgba(102, 126, 234, 0.2);
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
         }
 
-        /* Стиль для маленьких экранов */
         @media (max-width: 480px) {
             h1 {
                 font-size: 2.4rem;
@@ -64,27 +93,26 @@
         }
 
         .greeting-sub {
-            color: #4a5568;
+            color: #1a202c;
             margin-bottom: 40px;
-            font-size: 1.1rem;
-            font-weight: 400;
-            border-bottom: 1px dashed #cbd5e0;
+            font-size: 1.2rem;
+            font-weight: 500;
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
             padding-bottom: 20px;
         }
 
-        /* Красивая кнопка */
+        /* Кнопка в стиле облаков */
         .cta-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            color: white;
-            font-size: 1.4rem;
+            background: linear-gradient(135deg, #ffffff, #f0f4ff);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            color: #1e3a8a;
+            font-size: 1.5rem;
             font-weight: 600;
             padding: 18px 45px;
             border-radius: 60px;
             cursor: pointer;
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
             transition: all 0.25s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
             letter-spacing: 1px;
             backdrop-filter: blur(5px);
             width: 100%;
@@ -95,17 +123,20 @@
 
         .cta-button:hover {
             transform: scale(1.03);
-            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+            background: #ffffff;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
         .cta-button:active {
             transform: scale(0.98);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
         }
 
-        /* Маленькая анимация появления */
-        .card {
-            animation: fadeInUp 0.8s ease-out;
+        .footer-note {
+            margin-top: 25px;
+            font-size: 0.9rem;
+            color: #2d3748;
+            opacity: 0.9;
+            font-weight: 500;
         }
 
         @keyframes fadeInUp {
@@ -118,61 +149,56 @@
                 transform: translateY(0);
             }
         }
-
-        /* Футер с иконкой */
-        .footer-note {
-            margin-top: 25px;
-            font-size: 0.8rem;
-            color: #718096;
-            opacity: 0.8;
-        }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <!-- Основной заголовок -->
-        <h1>Привет, Алексей!</h1>
-        
-        <!-- Декоративная подпись -->
-        <div class="greeting-sub">✨ твой новый сайт готов ✨</div>
+    <!-- Видео с облаками (бесплатное стоковое видео из интернета) -->
+    <video class="video-background" autoplay muted loop playsinline>
+        <!-- Ссылка на красивое видео облаков с Pexels (автор: Miguel Á. Padriñán) -->
+        <source src="https://videos.pexels.com/video-files/3141210/3141210-uhd_2560_1440_25fps.mp4" type="video/mp4">
+        <!-- Если видео не загрузится, будет показан градиентный фон (запасной вариант) -->
+        Ваш браузер не поддерживает видео.
+    </video>
 
-        <!-- Кнопка по центру с действием -->
-        <button class="cta-button" id="magicButton">Нажми меня</button>
+    <!-- Затемнение для читаемости -->
+    <div class="overlay"></div>
 
-        <!-- Небольшой текст внизу -->
-        <div class="footer-note">Сделано с помощью ИИ и GitHub Pages</div>
+    <!-- Контент -->
+    <div class="content">
+        <div class="card">
+            <h1>Привет, Алексей!</h1>
+            <div class="greeting-sub">☁️ твой сайт с облаками ☁️</div>
+            <button class="cta-button" id="magicButton">Нажми меня</button>
+            <div class="footer-note">Сделано с помощью ИИ и GitHub Pages</div>
+        </div>
     </div>
 
     <script>
         (function() {
-            // Находим кнопку по id
             const button = document.getElementById('magicButton');
             
-            // Добавляем обработчик нажатия
             button.addEventListener('click', function() {
-                // Красивое всплывающее уведомление
-                alert('🚀 Отлично! Ты только что запустил свой второй сайт. Так держать, Алексей!');
+                alert('☁️ Отличного дня, Алексей! Пусть облака вдохновляют.');
                 
-                // Маленький бонус: при каждом нажатии меняем текст кнопки на секунду
                 const originalText = button.textContent;
-                button.textContent = '✓ Ура!';
-                button.style.background = 'linear-gradient(135deg, #48bb78, #38a169)';
+                button.textContent = '✨ Спасибо! ✨';
+                button.style.background = 'linear-gradient(135deg, #e0e7ff, #ffffff)';
+                button.style.color = '#1e3a8a';
                 
                 setTimeout(() => {
                     button.textContent = originalText;
-                    button.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                }, 1200);
+                    button.style.background = 'linear-gradient(135deg, #ffffff, #f0f4ff)';
+                }, 1500);
             });
 
-            // Дополнительная фишка: если нажать на заголовок 3 раза - маленький секрет
+            // Секретный клик по заголовку
             const title = document.querySelector('h1');
             let clickCount = 0;
             title.addEventListener('click', function() {
                 clickCount++;
                 if (clickCount === 3) {
-                    title.textContent = 'Привет, Мастер Алексей! 👑';
-                    title.style.transition = 'all 0.3s';
+                    title.textContent = '☁️ Мастер Облаков Алексей ☁️';
                     setTimeout(() => {
                         title.textContent = 'Привет, Алексей!';
                     }, 2000);
@@ -183,4 +209,5 @@
     </script>
 
 </body>
+</html>
 </html>
